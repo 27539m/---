@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>李锵亦 | 数据科学与大数据技术 · 个人简历</title>
+<style>
+/* ===== CSS Variables ===== */
+:root{
+  --gold:#C9A96E;--gold-light:#E8D5A3;--blue:#6BA3BE;--blue-deep:#4A8DA8;
+  --navy:#0A1628;--navy-light:#0F2240;--navy-card:rgba(15,34,64,0.85);
+  --bg:#060C18;--bg2:#0D1B2A;--text:#E8ECF1;--text2:#94A3B8;
+  --border:rgba(201,169,110,0.15);--shadow:0 8px 32px rgba(0,0,0,0.4);
+  --glass:rgba(15,34,64,0.6);--radius:12px;
+}
+[data-theme="light"]{
+  --bg:#F5F0E8;--bg2:#EDE5D8;--text:#1A1A2E;--text2:#555;
+  --border:rgba(201,169,110,0.3);--shadow:0 8px 32px rgba(0,0,0,0.08);
+  --glass:rgba(255,255,255,0.7);--navy-card:rgba(255,255,255,0.85);--navy-light:#FFF8ED;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.7;transition:background .3s,color .3s;overflow-x:hidden}
+a{color:var(--gold);text-decoration:none;transition:color .2s}
+a:hover{color:var(--gold-light)}
+::selection{background:var(--gold);color:var(--navy)}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px}
+
+/* ===== Starfield Background ===== */
+#starfield{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.6}
+[data-theme="light"] #starfield{opacity:0.15}
+
+/* ===== Nav ===== */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;transition:background .3s}
+.nav-brand{font-size:1.15rem;font-weight:700;color:var(--gold);letter-spacing:1px;white-space:nowrap}
+.nav-links{display:flex;gap:20px;align-items:center;flex-wrap:wrap;justify-content:center}
+.nav-links a{color:var(--text2);font-size:.85rem;font-weight:500;transition:all .25s ease;white-space:nowrap;padding:6px 14px;border:1px solid var(--border);border-radius:8px;display:inline-flex;align-items:center}
+.nav-links a:hover{border-color:var(--gold);color:var(--gold);background:rgba(201,169,110,0.08)}
+.nav-links a.active{background:var(--gold);color:var(--navy);border-color:var(--gold);font-weight:700;box-shadow:0 2px 12px rgba(201,169,110,0.3)}
+.nav-actions{display:flex;gap:8px;align-items:center}
+.btn-icon{width:36px;height:36px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;font-size:1rem}
+.btn-icon:hover{border-color:var(--gold);color:var(--gold);background:rgba(201,169,110,0.08)}
+
+/* ===== Hero ===== */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:80px 24px 60px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 30% 20%,rgba(107,163,190,0.12) 0%,transparent 50%),radial-gradient(ellipse at 70% 80%,rgba(201,169,110,0.08) 0%,transparent 50%);animation:heroGlow 15s ease-in-out infinite alternate;pointer-events:none}
+@keyframes heroGlow{0%{transform:translate(0,0)}100%{transform:translate(-3%,2%)}}
+.hero-inner{max-width:1000px;width:100%;display:flex;align-items:center;gap:48px;position:relative;z-index:1;animation:fadeUp .8s ease both}
+.hero-left{flex-shrink:0;text-align:center}
+.avatar-wrap{width:160px;height:160px;border-radius:50%;overflow:hidden;border:4px solid var(--gold);box-shadow:0 0 50px rgba(201,169,110,0.25);position:relative;transition:transform .3s ease}
+.avatar-wrap:hover{transform:scale(1.05)}
+.avatar-wrap img{width:100%;height:100%;object-fit:cover}
+.avatar-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--gold),var(--blue));font-size:3.5rem;font-weight:700;color:var(--navy)}
+.avatar-ring{position:absolute;inset:-8px;border-radius:50%;border:1px solid var(--border);animation:avatarRing 4s ease-in-out infinite}
+@keyframes avatarRing{0%,100%{opacity:.3;transform:scale(1)}50%{opacity:.7;transform:scale(1.05)}}
+.hero-right{flex:1;min-width:0}
+.hero-name{font-size:clamp(2rem,5vw,3.2rem);font-weight:800;margin-bottom:4px;background:linear-gradient(135deg,var(--gold),var(--gold-light),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:1.05rem;color:var(--text2);margin-bottom:18px}
+.hero-desc{max-width:640px;margin:0 0 24px;color:var(--text2);font-size:.95rem;line-height:1.8}
+.badge-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.badge{padding:5px 14px;border-radius:20px;font-size:.78rem;font-weight:600;border:1px solid var(--border);background:rgba(201,169,110,0.06);color:var(--gold);white-space:nowrap;transition:all .2s}
+.badge:hover{background:rgba(201,169,110,0.15);border-color:var(--gold);transform:translateY(-2px)}
+.contact-row{display:flex;gap:12px;flex-wrap:wrap}
+.btn{padding:10px 22px;border-radius:8px;font-size:.88rem;font-weight:600;cursor:pointer;transition:all .2s;border:none;display:inline-flex;align-items:center;gap:6px}
+.btn-gold{background:var(--gold);color:var(--navy)}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 4px 20px rgba(201,169,110,0.3)}
+.btn-outline{border:1px solid var(--border);background:transparent;color:var(--text)}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+
+/* ===== Section Common ===== */
+section{padding:80px 24px;position:relative;z-index:1}
+.section-title{font-size:1.8rem;font-weight:800;text-align:center;margin-bottom:12px;background:linear-gradient(135deg,var(--gold),var(--gold-light),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.section-desc{text-align:center;color:var(--text2);margin-bottom:48px;font-size:.92rem}
+.container{max-width:1100px;margin:0 auto}
+
+/* ===== Highlights ===== */
+.highlights-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.highlight-card{background:var(--navy-card);border:1px solid var(--border);border-radius:var(--radius);padding:28px 16px;text-align:center;transition:all .25s;position:relative;overflow:hidden}
+.highlight-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.highlight-card:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:var(--gold)}
+.highlight-num{font-size:1.8rem;font-weight:800;color:var(--gold);margin-bottom:6px}
+.highlight-label{font-size:.82rem;color:var(--text2);line-height:1.5}
+
+/* ===== Tabs ===== */
+.tab-bar{display:flex;gap:4px;justify-content:center;margin-bottom:32px;background:var(--glass);border:1px solid var(--border);border-radius:10px;padding:4px;max-width:480px;margin-left:auto;margin-right:auto}
+.tab-btn{flex:1;padding:10px 18px;border:none;border-radius:8px;background:transparent;color:var(--text2);font-size:.88rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
+.tab-btn[aria-selected="true"]{background:var(--gold);color:var(--navy)}
+.tab-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.tab-panel{display:none}
+.tab-panel.active{display:block;animation:fadeIn .3s ease}
+
+/* ===== Timeline ===== */
+.timeline{position:relative;padding-left:28px}
+.timeline::before{content:'';position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:var(--border)}
+.timeline-item{position:relative;margin-bottom:36px}
+.timeline-item:last-child{margin-bottom:0}
+.timeline-dot{position:absolute;left:-28px;top:6px;width:16px;height:16px;border-radius:50%;border:2px solid var(--gold);background:var(--bg)}
+.timeline-item:hover .timeline-dot{background:var(--gold)}
+.timeline-header{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.timeline-company{font-size:1.05rem;font-weight:700;color:var(--text)}
+.timeline-time{font-size:.82rem;color:var(--gold);font-weight:600}
+.timeline-role{font-size:.9rem;color:var(--blue);margin-bottom:10px;font-weight:500}
+.timeline-item ul{padding-left:18px}
+.timeline-item li{color:var(--text2);font-size:.88rem;margin-bottom:6px;line-height:1.7}
+.timeline-item li strong{color:var(--text);font-weight:600}
+
+/* ===== Project Cards ===== */
+.project-grid{display:grid;gap:24px}
+.project-card{background:var(--navy-card);border:1px solid var(--border);border-radius:var(--radius);padding:28px;transition:all .25s;position:relative;overflow:hidden}
+.project-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--gold)}
+.project-card h3{font-size:1.1rem;color:var(--gold);margin-bottom:6px}
+.project-time{font-size:.8rem;color:var(--text2);margin-bottom:12px}
+.project-card ul{padding-left:18px}
+.project-card li{color:var(--text2);font-size:.87rem;margin-bottom:6px;line-height:1.7}
+.project-card li strong{color:var(--text);font-weight:600}
+.project-with-img{display:grid;grid-template-columns:280px 1fr;gap:24px;align-items:start}
+.project-img-wrap{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);aspect-ratio:4/3;cursor:pointer;transition:all .3s}
+.project-img-wrap:hover{border-color:var(--gold);box-shadow:0 4px 20px rgba(201,169,110,0.2)}
+.project-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.project-img-wrap:hover img{transform:scale(1.05)}
+.project-img-caption{font-size:.72rem;color:var(--text2);text-align:center;padding:6px 0;opacity:.7}
+.project-video-wrap{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);background:#000;cursor:pointer;transition:all .3s;position:relative}
+.project-video-wrap:hover{border-color:var(--gold);box-shadow:0 4px 20px rgba(201,169,110,0.2)}
+.project-video-wrap video{width:100%;display:block;aspect-ratio:9/16;object-fit:cover}
+.project-video-wrap .play-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.35);transition:opacity .3s;z-index:2}
+.project-video-wrap .play-overlay .play-icon{width:56px;height:56px;border-radius:50%;background:rgba(201,169,110,0.9);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--navy);box-shadow:0 4px 24px rgba(0,0,0,0.4);transition:transform .3s}
+.project-video-wrap:hover .play-overlay{opacity:0.85}
+.project-video-wrap:hover .play-icon{transform:scale(1.15)}
+.project-audio-wrap{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);background:var(--navy-card);padding:16px;transition:all .3s}
+.project-audio-wrap:hover{border-color:var(--gold)}
+.project-audio-wrap audio{width:100%}
+.project-audio-label{font-size:.78rem;color:var(--text2);margin-top:8px;text-align:center}
+.tech-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.tech-tag{padding:3px 10px;border-radius:12px;font-size:.72rem;font-weight:600;background:rgba(107,163,190,0.1);color:var(--blue);border:1px solid rgba(107,163,190,0.2)}
+
+/* ===== Skills Matrix ===== */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.skill-category{background:var(--navy-card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;transition:all .25s}
+.skill-category:hover{border-color:var(--gold);box-shadow:var(--shadow)}
+.skill-category h3{font-size:1rem;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.skill-items{display:flex;flex-wrap:wrap;gap:8px}
+.skill-pill{padding:6px 14px;border-radius:8px;font-size:.82rem;font-weight:500;background:rgba(201,169,110,0.06);border:1px solid var(--border);color:var(--text2);transition:all .2s;cursor:default}
+.skill-pill:hover{border-color:var(--gold);color:var(--gold);background:rgba(201,169,110,0.1);transform:translateY(-2px)}
+
+/* ===== Hobbies 4-Grid ===== */
+.hobbies-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.hobby-card{background:var(--navy-card);border:1px solid var(--border);border-radius:var(--radius);padding:28px 24px;transition:all .25s;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;overflow:hidden}
+.hobby-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.hobby-card:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:var(--gold)}
+.hobby-icon{width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,rgba(201,169,110,0.15),rgba(107,163,190,0.15));display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:14px;transition:transform .3s}
+.hobby-card:hover .hobby-icon{transform:scale(1.1) rotate(5deg)}
+.hobby-card h3{font-size:1rem;color:var(--gold);margin-bottom:12px}
+.hobby-card .skill-items{justify-content:center}
+
+/* ===== Education ===== */
+.edu-card{background:var(--navy-card);border:1px solid var(--border);border-radius:var(--radius);padding:28px;margin-bottom:20px;transition:all .25s}
+.edu-card:hover{border-color:var(--gold)}
+.edu-card h3{font-size:1.1rem;color:var(--gold);margin-bottom:4px}
+.edu-meta{font-size:.88rem;color:var(--text2);margin-bottom:8px}
+.edu-courses{font-size:.85rem;color:var(--text2);line-height:1.7}
+
+/* ===== Certificates ===== */
+.cert-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.cert-highlight{grid-column:1/-1;background:linear-gradient(135deg,rgba(201,169,110,0.08),rgba(107,163,190,0.08));border:1px solid var(--gold);border-radius:var(--radius);padding:20px 28px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:space-between;transition:all .3s}
+.cert-highlight:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(201,169,110,0.2)}
+.cert-highlight-left{display:flex;align-items:center;gap:16px}
+.cert-highlight-icon{width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,var(--gold),var(--gold-light));display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:var(--navy);flex-shrink:0}
+.cert-highlight-title{font-size:1.1rem;font-weight:700;color:var(--gold)}
+.cert-highlight-sub{font-size:.82rem;color:var(--text2);margin-top:2px}
+.cert-highlight-stat{font-size:.8rem;color:var(--blue);font-weight:600;background:rgba(107,163,190,0.1);padding:6px 14px;border-radius:8px;border:1px solid rgba(107,163,190,0.2)}
+.cert-item{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);cursor:pointer;transition:all .3s;background:var(--navy-card)}
+.cert-item:hover{border-color:var(--gold);transform:scale(1.03);box-shadow:0 8px 30px rgba(201,169,110,0.15)}
+.cert-item img{width:100%;aspect-ratio:4/3;object-fit:contain;background:#fff;display:block;padding:8px;transition:transform .3s}
+.cert-item:hover img{transform:scale(1.1)}
+.cert-label{padding:10px 12px;font-size:.78rem;color:var(--text2);text-align:center;border-top:1px solid var(--border);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cert-category{font-size:.68rem;color:var(--gold);font-weight:600;padding:0 12px 8px;text-align:center;text-transform:uppercase;letter-spacing:1px}
+
+/* ===== Lightbox ===== */
+.lightbox{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,0.88);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:40px;cursor:zoom-out;animation:fadeIn .2s ease}
+.lightbox.open{display:flex}
+.lightbox img{max-width:90vw;max-height:85vh;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,0.5);animation:zoomIn .25s ease}
+.lightbox-close{position:fixed;top:20px;right:24px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.1);border:none;color:#fff;font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.lightbox-close:hover{background:rgba(255,255,255,0.2)}
+.lightbox-caption{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.7);font-size:.88rem;text-align:center;max-width:80vw}
+
+/* ===== Footer ===== */
+footer{text-align:center;padding:40px 24px;border-top:1px solid var(--border);color:var(--text2);font-size:.82rem;position:relative;z-index:1}
+footer a{color:var(--gold)}
+
+/* ===== Back to Top ===== */
+.back-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;border-radius:50%;background:var(--gold);color:var(--navy);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;opacity:0;transform:translateY(20px);transition:all .3s;box-shadow:0 4px 20px rgba(201,169,110,0.3);z-index:999}
+.back-top.show{opacity:1;transform:translateY(0)}
+.back-top:hover{transform:translateY(-3px);box-shadow:0 6px 24px rgba(201,169,110,0.4)}
+
+/* ===== Animations ===== */
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes zoomIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+.fade-in{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+.cert-scroll-scale{opacity:0;transform:scale(.75) translateY(40px);transition:opacity .6s cubic-bezier(.2,.7,.3,1),transform .6s cubic-bezier(.2,.7,.3,1)}
+.cert-scroll-scale.visible{opacity:1;transform:scale(1) translateY(0)}
+
+/* ===== Responsive ===== */
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hero-inner{flex-direction:column;text-align:center;gap:24px}
+  .hero-name{font-size:1.8rem}
+  .badge-row{justify-content:center}
+  .contact-row{justify-content:center}
+  .highlights-grid{grid-template-columns:repeat(2,1fr)}
+  .skills-grid{grid-template-columns:1fr}
+  .hobbies-grid{grid-template-columns:repeat(2,1fr)!important}
+  .cert-gallery{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+  section{padding:60px 16px}
+  .tab-bar{max-width:100%}
+  .timeline{padding-left:24px}
+  .project-with-img{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .highlights-grid{grid-template-columns:1fr;gap:8px}
+  .highlight-card{padding:16px 8px}
+  .highlight-num{font-size:1.3rem}
+  .highlight-label{font-size:.72rem}
+  .cert-gallery{grid-template-columns:1fr 1fr}
+  .hero{padding-top:70px}
+  .project-with-img{grid-template-columns:1fr}
+}
+
+/* ===== Print ===== */
+@media print{
+  *{color:#1a1a1a!important;background:transparent!important;box-shadow:none!important;text-shadow:none!important}
+  body{font-size:12pt;line-height:1.5}
+  nav,.back-top,.lightbox,.btn-icon,.tab-bar,#starfield{display:none!important}
+  .hero{min-height:auto;padding:20px 0}
+  .hero::before{display:none}
+  .section-title{font-size:14pt;margin-bottom:8pt}
+  section{padding:16pt 0!important}
+  .highlight-card,.project-card,.skill-category,.edu-card,.cert-item{border:1px solid #ddd!important;page-break-inside:avoid}
+  .cert-gallery{grid-template-columns:repeat(4,1fr)!important}
+  .cert-label{font-size:7pt}
+  .badge{border:1px solid #999!important}
+  .fade-in,.cert-scroll-scale{opacity:1!important;transform:none!important}
+  .tab-panel{display:block!important}
+  .tab-panel:not(.active){display:block!important}
+  .container{max-width:100%}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Starfield Canvas ===== -->
+<canvas id="starfield"></canvas>
+
+<!-- ===== Navigation ===== -->
+<nav>
+  <div class="nav-brand">李锵亦</div>
+  <div class="nav-links" id="navLinks">
+    <a href="#hero">首页</a>
+    <a href="#highlights">亮点</a>
+    <a href="#experience">经历</a>
+    <a href="#projects">项目</a>
+    <a href="#skills">技能</a>
+    <a href="#education">教育</a>
+    <a href="#hobbies">特长</a>
+    <a href="#certificates">证书</a>
+  </div>
+  <div class="nav-actions">
+    <button class="btn-icon" id="themeToggle" title="切换深浅色" aria-label="切换深浅色模式">&#9788;</button>
+    <button class="btn-icon" id="printBtn" title="打印 PDF" aria-label="打印">&#9998;</button>
+  </div>
+</nav>
+
+<!-- ===== Hero ===== -->
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="avatar-wrap">
+        <img id="avatarImg" src="avatar.png" alt="李锵亦头像" onerror="this.parentElement.innerHTML='<div class=avatar-placeholder>李</div>'">
+        <div class="avatar-ring"></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <h1 class="hero-name">李锵亦</h1>
+      <p class="hero-sub">中央民族大学 · 数据科学与大数据技术（2026级本科在读）</p>
+      <p class="hero-desc">广州人，大数据专业在读，习惯以数据驱动决策、权重框架做结构化分析。自学视频剪辑与卡点视频制作，独立完成旅游卡点短片与AI音乐创作；编程课程附加题独立开发坦克大战全功能游戏。兼具技术执行力与内容创作能力，对新技术保持持续学习热情。</p>
+      <div class="badge-row">
+        <span class="badge">Python / Pygame</span>
+        <span class="badge">视频剪辑</span>
+        <span class="badge">卡点视频</span>
+        <span class="badge">PPT设计</span>
+        <span class="badge">AI音乐创作</span>
+        <span class="badge">数据素养</span>
+        <span class="badge">结构化决策</span>
+      </div>
+      <div class="contact-row">
+        <button class="btn btn-gold" onclick="copyEmail()">&#9993; 复制邮箱</button>
+        <a class="btn btn-outline" href="tel:+8618924106805">&#9742; 189-2410-6805</a>
+        <a class="btn btn-outline" href="https://github.com/27539m" target="_blank" rel="noopener">&#128187; GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Highlights ===== -->
+<section id="highlights">
+  <div class="container">
+    <h2 class="section-title fade-in">核心亮点</h2>
+    <p class="section-desc fade-in">用数据说话，量化每一次贡献</p>
+    <div class="highlights-grid">
+      <div class="highlight-card fade-in">
+        <div class="highlight-num">5关</div>
+        <div class="highlight-label">坦克大战游戏<br>独立开发全功能</div>
+      </div>
+      <div class="highlight-card fade-in">
+        <div class="highlight-num">14项</div>
+        <div class="highlight-label">AI / 编程认证<br>涵盖云/AI/开发全链路</div>
+      </div>
+      <div class="highlight-card fade-in">
+        <div class="highlight-num">3项</div>
+        <div class="highlight-label">校级荣誉<br>学习积极分子·优秀学生·三好学生</div>
+      </div>
+      <div class="highlight-card fade-in">
+        <div class="highlight-num">12人</div>
+        <div class="highlight-label">学习小组组长<br>每周主持40分钟拓展课</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Experience ===== -->
+<section id="experience">
+  <div class="container">
+    <h2 class="section-title fade-in">校园经历</h2>
+    <p class="section-desc fade-in">高中阶段的领导力与执行力</p>
+    <div class="tab-bar" role="tablist" aria-label="经历分类">
+      <button class="tab-btn" role="tab" aria-selected="true" aria-controls="tab-leader" id="tabBtn-leader" tabindex="0">学生干部</button>
+      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-sports" id="tabBtn-sports" tabindex="-1">体育荣誉</button>
+      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-military" id="tabBtn-military" tabindex="-1">军训表彰</button>
+    </div>
+    <div class="tab-panel active" id="tab-leader" role="tabpanel" aria-labelledby="tabBtn-leader">
+      <div class="timeline">
+        <div class="timeline-item fade-in">
+          <div class="timeline-dot"></div>
+          <div class="timeline-header">
+            <span class="timeline-company">广州市第二中学</span>
+            <span class="timeline-time">高中阶段</span>
+          </div>
+          <div class="timeline-role">学习小组组长 · 数学课代表</div>
+          <ul>
+            <li><strong>带领12人学习小组</strong>：担任组长期间，组织每周40分钟专题拓展课，覆盖数学重难点拆解与跨学科知识延伸，小组成员月考平均分提升约15%</li>
+            <li><strong>数学课代表职责</strong>：负责日常作业收发、错题归档与答疑协调，协助教师梳理高频错题清单，推动班级数学平均分稳居年级前列</li>
+            <li><strong>校级荣誉</strong>：获"校级学习积极分子""校级优秀学生""校三好学生"三项荣誉，综合评定排名班级前15%</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="tab-panel" id="tab-sports" role="tabpanel" aria-labelledby="tabBtn-sports">
+      <div class="timeline">
+        <div class="timeline-item fade-in">
+          <div class="timeline-dot"></div>
+          <div class="timeline-header">
+            <span class="timeline-company">广州市第二中学 · 校运会</span>
+            <span class="timeline-time">高中阶段</span>
+          </div>
+          <div class="timeline-role">4×100米女子接力 · 团体全校第六名</div>
+          <ul>
+            <li><strong>团队协作</strong>：作为4×100女子接力队成员，与3名队友配合完成训练与比赛，获得团体全校第六名</li>
+            <li><strong>坚持训练</strong>：赛季期间每周5天晨训，将个人百米成绩缩短约1.2秒，为团队成绩提升贡献关键一棒</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="tab-panel" id="tab-military" role="tabpanel" aria-labelledby="tabBtn-military">
+      <div class="timeline">
+        <div class="timeline-item fade-in">
+          <div class="timeline-dot"></div>
+          <div class="timeline-header">
+            <span class="timeline-company">高中军训</span>
+            <span class="timeline-time">高中阶段</span>
+          </div>
+          <div class="timeline-role">班级积极分子</div>
+          <ul>
+            <li><strong>军训表现突出</strong>：在为期两周的军事训练中，以高标准完成队列、内务与纪律考核，获"班级积极分子"荣誉称号</li>
+            <li><strong>协助教官</strong>：主动承担队列标兵与内务检查协助工作，帮助同班同学纠正动作规范，班级内务评比获评优秀</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Projects ===== -->
+<section id="projects">
+  <div class="container">
+    <h2 class="section-title fade-in">项目经历</h2>
+    <p class="section-desc fade-in">从构想到落地，用代码与创意验证想法</p>
+    <div class="project-grid">
+
+      <!-- 坦克大战 -->
+      <div class="project-card fade-in">
+        <div class="project-with-img">
+          <div>
+            <div class="project-img-wrap" onclick="openLightbox('tank_battle_preview.png','坦克大战 · Tank Battle LQY')">
+              <img src="tank_battle_preview.png" alt="坦克大战游戏截图" loading="lazy">
+            </div>
+            <div class="project-img-caption">点击查看大图</div>
+          </div>
+          <div>
+            <h3>坦克大战 · Tank Battle LQY</h3>
+            <div class="project-time">2026.08 · 编程课程附加题（满分提交）</div>
+            <ul>
+              <li><strong>项目背景</strong>：编程课程附加题，要求用Python从零实现一款功能完整的坦克大战游戏，挑战满分加分项</li>
+              <li><strong>架构设计</strong>：基于Python 3 + Pygame-ce构建5关难度递进系统，实现敌人AI自主追击与射击、AABB碰撞检测、爆炸粒子特效、无敌重生机制；代码内合成6种音效（正弦波+白噪声），零外部音频依赖</li>
+              <li><strong>三大加分点</strong>：①自定义照片暗化作游戏底图，营造沉浸式视觉氛围；②地图中央用30块金色砖墙精确拼出"LQY"字母标识（均为可碰撞可摧毁实体），证明原创性；③标题栏、HUD、菜单、胜负界面、水印共5处嵌入个人身份标识</li>
+              <li><strong>技术亮点</strong>：敌人AI采用概率追击策略（45%概率向玩家方向移动）+ 随机巡逻混合模式；子弹系统支持砖墙可破坏、铁墙不可破坏判定；单轴滑动碰撞让手感更流畅</li>
+              <li><strong>成果</strong>：课程附加题满分提交，PyInstaller打包为免安装exe文件；707行代码，18项自动化测试全绿</li>
+            </ul>
+            <div class="tech-tags">
+              <span class="tech-tag">Python 3</span>
+              <span class="tech-tag">Pygame-ce</span>
+              <span class="tech-tag">游戏AI</span>
+              <span class="tech-tag">碰撞检测</span>
+              <span class="tech-tag">音效合成</span>
+              <span class="tech-tag">PyInstaller</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 洛阳卡点视频 -->
+      <div class="project-card fade-in">
+        <div class="project-with-img">
+          <div>
+            <div class="project-video-wrap" onclick="openVideoLightbox('welcome to luoyang.mp4','洛阳·神都夜游 卡点视频')">
+              <video muted preload="metadata" poster="luoyang-cover.jpg">
+                <source src="welcome to luoyang.mp4" type="video/mp4">
+              </video>
+              <div class="play-overlay"><div class="play-icon">&#9654;</div></div>
+            </div>
+            <div class="project-img-caption">点击播放完整视频</div>
+          </div>
+          <div>
+            <h3>洛阳·神都夜游 · 卡点视频</h3>
+            <div class="project-time">2026.08 · 个人作品（自学剪辑2天产出）</div>
+            <ul>
+              <li><strong>项目背景</strong>：暑假洛阳旅行后，利用9段实拍视频与74张照片素材，自学视频剪辑2天后独立完成卡点短片</li>
+              <li><strong>创作过程</strong>：筛选素材并按叙事节奏排列，逐帧对齐88个重音鼓点完成画面卡点切换，全片采用0.2秒淡入淡出转场衔接，照片使用Ken Burns缓慢推拉效果增强动感</li>
+              <li><strong>高级技法</strong>：精彩画面应用慢放处理放大视觉冲击；原创歌曲歌词字幕依次淡入配合画面叙事；开头标题动画"洛阳·神都夜游"+结尾收束画面构成完整叙事弧线</li>
+              <li><strong>成果</strong>：1080×1920竖屏制式适配短视频平台，30fps流畅播放；从零基础到成片仅2天，展现快速学习与审美判断力</li>
+            </ul>
+            <div class="tech-tags">
+              <span class="tech-tag">视频剪辑</span>
+              <span class="tech-tag">卡点节奏</span>
+              <span class="tech-tag">Ken Burns</span>
+              <span class="tech-tag">色彩调色</span>
+              <span class="tech-tag">竖屏适配</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI音乐作品 -->
+      <div class="project-card fade-in">
+        <div class="project-with-img">
+          <div>
+            <div class="project-audio-wrap">
+              <audio controls preload="metadata">
+                <source src="节奏律动音频作品.mp3" type="audio/mpeg">
+              </audio>
+              <div class="project-audio-label">点击播放 · AI协同创作音乐作品</div>
+            </div>
+          </div>
+          <div>
+            <h3>节奏律动 · AI协同音乐创作</h3>
+            <div class="project-time">2026.08 · 个人作品</div>
+            <ul>
+              <li><strong>创作理念</strong>：探索AI生成技术与个人审美的协同边界，通过精准的Prompt工程引导AI生成多版旋律原型，再以人工审美筛选与精细调优完成最终定稿</li>
+              <li><strong>工作流程</strong>：设计结构化音乐Prompt（指定BPM、调性、配器风格、情绪曲线）→ AI生成多版候选 → 人耳审美筛选保留优质片段 → 微调节奏对齐与动态层次 → 最终混音输出</li>
+              <li><strong>技术能力</strong>：掌握AI音乐生成的Prompt工程方法论，具备音乐结构分析能力（前奏-主歌-副歌-桥段-尾奏的起承转合判断），能独立完成从创意构想到成品交付的全链路</li>
+              <li><strong>成果</strong>：产出完整音乐作品，节奏精准、层次分明，兼具律动感与旋律记忆点；体现跨学科创作能力——技术工具服务于艺术表达</li>
+            </ul>
+            <div class="tech-tags">
+              <span class="tech-tag">AI音乐生成</span>
+              <span class="tech-tag">Prompt工程</span>
+              <span class="tech-tag">音乐审美筛选</span>
+              <span class="tech-tag">节奏调优</span>
+              <span class="tech-tag">混音输出</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== Skills ===== -->
+<section id="skills">
+  <div class="container">
+    <h2 class="section-title fade-in">技能矩阵</h2>
+    <p class="section-desc fade-in">编程 / 创意 / 工具 / 领域能力全覆盖</p>
+    <div class="skills-grid">
+      <div class="skill-category fade-in">
+        <h3>&#9881; 编程开发</h3>
+        <div class="skill-items">
+          <span class="skill-pill">Python 3</span>
+          <span class="skill-pill">Pygame-ce</span>
+          <span class="skill-pill">游戏开发</span>
+          <span class="skill-pill">PyInstaller打包</span>
+          <span class="skill-pill">GitHub</span>
+        </div>
+      </div>
+      <div class="skill-category fade-in">
+        <h3>&#127916; 内容创作</h3>
+        <div class="skill-items">
+          <span class="skill-pill">视频剪辑</span>
+          <span class="skill-pill">卡点视频制作</span>
+          <span class="skill-pill">Ken Burns效果</span>
+          <span class="skill-pill">色彩调色</span>
+          <span class="skill-pill">竖屏短视频</span>
+        </div>
+      </div>
+      <div class="skill-category fade-in">
+        <h3>&#127889; PPT与设计</h3>
+        <div class="skill-items">
+          <span class="skill-pill">PPT结构化设计</span>
+          <span class="skill-pill">数据可视化</span>
+          <span class="skill-pill">排版审美</span>
+          <span class="skill-pill">行业定制配色</span>
+        </div>
+      </div>
+      <div class="skill-category fade-in">
+        <h3>&#129504; AI工具应用</h3>
+        <div class="skill-items">
+          <span class="skill-pill">AI音乐生成</span>
+          <span class="skill-pill">Prompt工程</span>
+          <span class="skill-pill">AI绘画</span>
+          <span class="skill-pill">AI辅助编程</span>
+        </div>
+      </div>
+      <div class="skill-category fade-in">
+        <h3>&#128202; 数据素养</h3>
+        <div class="skill-items">
+          <span class="skill-pill">结构化决策</span>
+          <span class="skill-pill">权重框架分析</span>
+          <span class="skill-pill">数据驱动思维</span>
+          <span class="skill-pill">深度调研</span>
+        </div>
+      </div>
+      <div class="skill-category fade-in">
+        <h3>&#127760; 综合素质</h3>
+        <div class="skill-items">
+          <span class="skill-pill">摄影基础</span>
+          <span class="skill-pill">钢琴英皇五级</span>
+          <span class="skill-pill">羽毛球</span>
+          <span class="skill-pill">流行音乐</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Education ===== -->
+<section id="education">
+  <div class="container">
+    <h2 class="section-title fade-in">教育背景</h2>
+    <p class="section-desc fade-in">学术基础与成长轨迹</p>
+    <div class="edu-card fade-in">
+      <h3>中央民族大学</h3>
+      <div class="edu-meta">数据科学与大数据技术 · 本科在读（2026级）</div>
+      <div class="edu-courses">
+        核心方向：高等数学、线性代数、数据结构、数据库系统、大数据计算引擎、数据挖掘与机器学习、数据可视化与分析
+      </div>
+    </div>
+    <div class="edu-card fade-in">
+      <h3>广州市第二中学</h3>
+      <div class="edu-meta">高中部 · 理科方向</div>
+      <div class="edu-courses">校级学习积极分子 · 校级优秀学生 · 校三好学生 | 学习小组组长（12人） · 数学课代表</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Hobbies ===== -->
+<section id="hobbies">
+  <div class="container">
+    <h2 class="section-title fade-in">特长与兴趣</h2>
+    <p class="section-desc fade-in">技术之外，也有多彩生活</p>
+    <div class="hobbies-grid">
+      <div class="hobby-card fade-in">
+        <div class="hobby-icon">&#127929;</div>
+        <h3>钢琴</h3>
+        <div class="skill-items">
+          <span class="skill-pill">英皇钢琴五级</span>
+          <span class="skill-pill">古典乐理基础</span>
+          <span class="skill-pill">日常练习坚持</span>
+        </div>
+      </div>
+      <div class="hobby-card fade-in">
+        <div class="hobby-icon">&#127946;</div>
+        <h3>羽毛球</h3>
+        <div class="skill-items">
+          <span class="skill-pill">校运会4×100接力全校第六</span>
+          <span class="skill-pill">团队协作</span>
+          <span class="skill-pill">坚持训练</span>
+        </div>
+      </div>
+      <div class="hobby-card fade-in">
+        <div class="hobby-icon">&#127908;</div>
+        <h3>音乐</h3>
+        <div class="skill-items">
+          <span class="skill-pill">流行音乐</span>
+          <span class="skill-pill">AI音乐创作</span>
+          <span class="skill-pill">审美调优</span>
+        </div>
+      </div>
+      <div class="hobby-card fade-in">
+        <div class="hobby-icon">&#128247;</div>
+        <h3>摄影</h3>
+        <div class="skill-items">
+          <span class="skill-pill">摄影基础</span>
+          <span class="skill-pill">微单摄影（计划深耕）</span>
+          <span class="skill-pill">旅行实拍</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Certificates ===== -->
+<section id="certificates">
+  <div class="container">
+    <h2 class="section-title fade-in">获奖与证书</h2>
+    <p class="section-desc fade-in">点击图片可放大查看</p>
+    <div class="cert-gallery" id="certGallery">
+      <div class="cert-highlight fade-in" style="grid-column:1/-1">
+        <div class="cert-highlight-left">
+          <div class="cert-highlight-icon">&#127942;</div>
+          <div>
+            <div class="cert-highlight-title">AI / 编程技术认证体系</div>
+            <div class="cert-highlight-sub">覆盖阿里云、科大讯飞、华为、深势科技等头部平台，涵盖云计算、AI编码、智能体、RAG、AIGC、Prompt工程、模型微调全链路</div>
+          </div>
+        </div>
+        <div class="cert-highlight-stat">14项认证</div>
+      </div>
+      <div class="cert-highlight fade-in" style="grid-column:1/-1">
+        <div class="cert-highlight-left">
+          <div class="cert-highlight-icon">&#127891;</div>
+          <div>
+            <div class="cert-highlight-title">高中阶段校级荣誉</div>
+            <div class="cert-highlight-sub">学习积极分子 · 优秀学生 · 三好学生 · 军训班级积极分子 · 校运会4×100接力团体第六</div>
+          </div>
+        </div>
+        <div class="cert-highlight-stat">5项荣誉</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer>
+  <p>&copy; 2026 李锵亦 &nbsp;|&nbsp; 最后更新：2026年8月</p>
+  <p style="margin-top:6px;font-size:.75rem">中央民族大学 · 数据科学与大数据技术 | 14项AI认证 | GitHub: 27539m</p>
+</footer>
+
+<!-- ===== Back to Top ===== -->
+<button class="back-top" id="backTop" aria-label="返回顶部">&#8593;</button>
+
+<!-- ===== Image Lightbox ===== -->
+<div class="lightbox" id="lightbox" role="dialog" aria-label="大图查看">
+  <button class="lightbox-close" aria-label="关闭">&#10005;</button>
+  <img src="" alt="" id="lightboxImg">
+  <div class="lightbox-caption" id="lightboxCaption"></div>
+</div>
+
+<!-- ===== Video Lightbox ===== -->
+<div class="lightbox" id="videoLightbox" role="dialog" aria-label="视频播放">
+  <button class="lightbox-close" aria-label="关闭">&#10005;</button>
+  <video controls autoplay id="lightboxVideo" style="max-width:90vw;max-height:85vh;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,0.5)">
+    <source src="" type="video/mp4">
+  </video>
+  <div class="lightbox-caption" id="videoLightboxCaption"></div>
+</div>
+
+<script>
+// ===== Certificates Data =====
+var certs = [
+  { file: 'cert01.png', label: '阿里云ACA云计算认证', cat: '阿里云', desc: '基础级 · 2024.12' },
+  { file: 'cert02.png', label: '通义灵码AI编码', cat: '阿里云Clouder', desc: '高效AI编码实践' },
+  { file: 'cert03.png', label: '百炼平台智能体', cat: '阿里云Clouder', desc: '智能体应用构建' },
+  { file: 'cert04.png', label: 'PAI ArtLab AIGC', cat: '阿里云Clouder', desc: 'AIGC设计' },
+  { file: 'cert05.png', label: 'VISION设计（入门）', cat: '阿里云Clouder', desc: '人工智能设计' },
+  { file: 'cert06.png', label: 'Spring AI应用开发', cat: '阿里云Clouder', desc: '入门级' },
+  { file: 'cert07.png', label: 'VISION设计（进阶）', cat: '阿里云Clouder', desc: '人工智能设计' },
+  { file: 'cert08.png', label: 'RAG应用构建及优化', cat: '阿里云Clouder', desc: 'RAG应用' },
+  { file: 'cert09.png', label: 'Prompt工程师认证', cat: '科大讯飞', desc: 'Prompt工程' },
+  { file: 'cert10.png', label: '智能体工程师认证', cat: '科大讯飞', desc: '智能体开发' },
+  { file: 'cert11.png', label: '微调工程师认证', cat: '科大讯飞', desc: '模型微调' },
+  { file: 'cert12.png', label: 'RAG工程师认证', cat: '科大讯飞', desc: 'RAG工程' },
+  { file: 'cert13.png', label: 'AI4S Cup Python认证', cat: '其他', desc: 'Python基础 · 北京深势科技' },
+  { file: 'cert14.png', label: '华为人工智能微认证', cat: '华为', desc: 'AI入门' }
+];
+
+// ===== Render Certificates =====
+var gallery = document.getElementById('certGallery');
+certs.forEach(function(c, i) {
+  var div = document.createElement('div');
+  div.className = 'cert-item cert-scroll-scale';
+  div.style.transitionDelay = (i * 0.05) + 's';
+  div.innerHTML = '<img src="' + c.file + '" alt="' + c.label + '" loading="lazy" onerror="this.style.display=\'none\'">' +
+    '<div class="cert-category">' + c.cat + '</div>' +
+    '<div class="cert-label" title="' + c.label + '">' + c.label + '</div>' +
+    '<div style="font-size:.7rem;color:var(--text2);text-align:center;padding:0 12px 10px;opacity:.7">' + (c.desc || '') + '</div>';
+  div.addEventListener('click', function() { openLightbox(c.file, c.label); });
+  gallery.appendChild(div);
+});
+
+// ===== Image Lightbox =====
+var lightbox = document.getElementById('lightbox');
+var lightboxImg = document.getElementById('lightboxImg');
+var lightboxCaption = document.getElementById('lightboxCaption');
+
+function openLightbox(src, caption) {
+  lightboxImg.src = src;
+  lightboxImg.alt = caption;
+  lightboxCaption.textContent = caption;
+  lightbox.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+}
+lightbox.addEventListener('click', function(e) {
+  if (e.target === lightbox || e.target.classList.contains('lightbox-close')) closeLightbox();
+});
+
+// ===== Video Lightbox =====
+var videoLightbox = document.getElementById('videoLightbox');
+var videoLightboxVideo = document.getElementById('lightboxVideo');
+var videoLightboxCaption = document.getElementById('videoLightboxCaption');
+
+function openVideoLightbox(src, caption) {
+  videoLightboxVideo.querySelector('source').src = src;
+  videoLightboxVideo.load();
+  videoLightboxVideo.play();
+  videoLightboxCaption.textContent = caption;
+  videoLightbox.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeVideoLightbox() {
+  videoLightboxVideo.pause();
+  videoLightbox.classList.remove('open');
+  document.body.style.overflow = '';
+}
+videoLightbox.addEventListener('click', function(e) {
+  if (e.target === videoLightbox || e.target.classList.contains('lightbox-close')) closeVideoLightbox();
+});
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') { closeLightbox(); closeVideoLightbox(); }
+});
+
+// ===== Theme Toggle =====
+var themeToggle = document.getElementById('themeToggle');
+var savedTheme = localStorage.getItem('theme') || 'dark';
+document.documentElement.setAttribute('data-theme', savedTheme);
+updateThemeIcon();
+
+themeToggle.addEventListener('click', function() {
+  var current = document.documentElement.getAttribute('data-theme');
+  var next = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  updateThemeIcon();
+});
+
+function updateThemeIcon() {
+  var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  themeToggle.innerHTML = isDark ? '&#9788;' : '&#9790;';
+  themeToggle.title = isDark ? '切换浅色模式' : '切换深色模式';
+}
+
+// ===== Print =====
+document.getElementById('printBtn').addEventListener('click', function() { window.print(); });
+
+// ===== Email Anti-Scraping =====
+function copyEmail() {
+  var e = [49,56,57,50,52,49,48,54,56,48,53,64,49,56,57,46,99,110].map(function(c){return String.fromCharCode(c)}).join('');
+  navigator.clipboard.writeText(e).then(function() {
+    var btn = document.querySelector('.btn-gold');
+    var orig = btn.innerHTML;
+    btn.innerHTML = '&#10003; 已复制';
+    btn.style.background = '#4CAF50';
+    setTimeout(function() { btn.innerHTML = orig; btn.style.background = ''; }, 1500);
+  }).catch(function() {
+    var e2 = [49,56,57,50,52,49,48,54,56,48,53,64,49,56,57,46,99,110].map(function(c){return String.fromCharCode(c)}).join('');
+    prompt('请复制邮箱地址：', e2);
+  });
+}
+
+// ===== Tabs =====
+document.querySelectorAll('.tab-bar').forEach(function(bar) {
+  var btns = bar.querySelectorAll('.tab-btn');
+  var parentId = bar.parentElement;
+  var panels = parentId.querySelectorAll('.tab-panel');
+
+  function activateTab(idx) {
+    btns.forEach(function(b, j) {
+      b.setAttribute('aria-selected', j === idx ? 'true' : 'false');
+      b.tabIndex = j === idx ? 0 : -1;
+    });
+    panels.forEach(function(p, j) {
+      p.classList.toggle('active', j === idx);
+    });
+  }
+
+  btns.forEach(function(btn, i) {
+    btn.addEventListener('click', function() { activateTab(i); });
+    btn.addEventListener('keydown', function(e) {
+      var idx = i;
+      if (e.key === 'ArrowRight') idx = (i + 1) % btns.length;
+      else if (e.key === 'ArrowLeft') idx = (i - 1 + btns.length) % btns.length;
+      else return;
+      e.preventDefault();
+      activateTab(idx);
+      btns[idx].focus();
+    });
+  });
+});
+
+// ===== Scroll Animations =====
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.fade-in, .cert-scroll-scale').forEach(function(el) { observer.observe(el); });
+
+// ===== Back to Top =====
+var backTop = document.getElementById('backTop');
+window.addEventListener('scroll', function() {
+  backTop.classList.toggle('show', window.scrollY > 400);
+}, { passive: true });
+backTop.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+// ===== Active Nav Link =====
+var navSections = document.querySelectorAll('section[id]');
+var navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', function() {
+  var current = '';
+  navSections.forEach(function(sec) {
+    if (window.scrollY >= sec.offsetTop - 100) current = sec.id;
+  });
+  navLinks.forEach(function(a) {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+}, { passive: true });
+
+// ===== Starfield Animation =====
+(function() {
+  var canvas = document.getElementById('starfield');
+  var ctx = canvas.getContext('2d');
+  var stars = [];
+  var STAR_COUNT = 200;
+  var w, h;
+
+  function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+
+  function initStars() {
+    stars = [];
+    for (var i = 0; i < STAR_COUNT; i++) {
+      stars.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 1.2 + 0.3,
+        o: Math.random() * 0.5 + 0.2,
+        twinkle: Math.random() * 0.02 + 0.005,
+        phase: Math.random() * Math.PI * 2,
+        vx: (Math.random() - 0.5) * 0.05,
+        vy: (Math.random() - 0.5) * 0.05
+      });
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    for (var i = 0; i < stars.length; i++) {
+      var s = stars[i];
+      s.phase += s.twinkle;
+      var alpha = s.o * (0.5 + 0.5 * Math.sin(s.phase));
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = isDark
+        ? 'rgba(201,169,110,' + alpha + ')'
+        : 'rgba(107,163,190,' + (alpha * 0.5) + ')';
+      ctx.fill();
+      s.x += s.vx;
+      s.y += s.vy;
+      if (s.x < 0) s.x = w;
+      if (s.x > w) s.x = 0;
+      if (s.y < 0) s.y = h;
+      if (s.y > h) s.y = 0;
+    }
+    requestAnimationFrame(draw);
+  }
+
+  resize();
+  initStars();
+  draw();
+  window.addEventListener('resize', function() { resize(); initStars(); });
+})();
+</script>
+</body>
+</html>
